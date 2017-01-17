@@ -23,9 +23,16 @@ def gradient_descent(features, values, theta, alpha, num_iterations):
     # See the Instructor notes for hints. 
     
     cost_history = []
+    theta0 = theta
 
-    ###########################
-    ### YOUR CODE GOES HERE ###
-    ###########################
+    for i in range(0, num_iterations):
+        theta1 = theta0 - alpha*compute_cost(features, values, theta) 
+        cost_history.append(theta1)
+        theta0 = theta1
 
     return theta, pandas.Series(cost_history) # leave this line for the grader
+
+
+# The truth value of an array with more than one element is ambiguous. Use a.any() or a.all() was the error I got from the above
+# then I did "theta = theta1.all()" to get true, and then I got this error: 
+# "invalid index to scalar variable"
