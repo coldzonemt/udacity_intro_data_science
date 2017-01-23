@@ -33,7 +33,9 @@ def compute_cost(features, values, theta):
     but feel free to implement your own.
     """
     
-    # your code here
+    m = len(values)
+    sum_of_square_errors = np.square(np.dot(features, theta) - values).sum()
+    cost = sum_of_square_errors / (2*m)
 
     return cost
 
@@ -49,7 +51,12 @@ def gradient_descent(features, values, theta, alpha, num_iterations):
     cost_history = []
 
     for i in range(num_iterations):
-        # your code here
+        predicted_values = np.dot(features, theta)
+        theta = theta - (alpha/m)*(np.dot((predicted_values-values), features))
+
+        cost = compute_cost(features, values, theta)
+        cost_history.append(cost)
+
     return theta, pandas.Series(cost_history)
 
 def predictions(dataframe):
@@ -118,7 +125,7 @@ def predictions(dataframe):
     # -------------------------------------------------
     # Uncomment the next line to see your cost history
     # -------------------------------------------------
-    # plot = plot_cost_history(alpha, cost_history)
+    plot = plot_cost_history(alpha, cost_history)
     # 
     # Please note, there is a possibility that plotting
     # this in addition to your calculation will exceed 
@@ -143,7 +150,8 @@ def plot_cost_history(alpha, cost_history):
       'Cost_History': cost_history,
       'Iteration': range(len(cost_history))
    })
-   return ggplot(cost_df, aes('Iteration', 'Cost_History')) + \
+   print ggplot(cost_df, aes('Iteration', 'Cost_History')) + \
       geom_point() + ggtitle('Cost History for alpha = %.3f' % alpha )
 
-
+weather_data = pandas.read_csv('./turnstile_data_master_with_weather.csv')
+predictions(weather_data)
