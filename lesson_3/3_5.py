@@ -110,8 +110,8 @@ def predictions(dataframe):
     values_array = np.array(values)
 
     # Set values for alpha, number of iterations.
-    alpha = 0.1 # please feel free to change this value
-    num_iterations = 75 # please feel free to change this value
+    alpha = 0.5 # please feel free to change this value
+    num_iterations = 100 # please feel free to change this value
 
     # Initialize theta, perform gradient descent
     theta_gradient_descent = np.zeros(len(features.columns))
